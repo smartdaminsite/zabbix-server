@@ -56,6 +56,9 @@ RUN groupadd zabbix &&\
 
 RUN mkdir /run/php/
 
+# Очищаем каталог с исходными кодами
+RUN rm -rf /usr/src/zabbix/
+
 # Создаем конфигурационные файлы и скрипт запуска согласно переменных окружения
 COPY ./run.sh /opt/
 RUN chmod +x /opt/run.sh
