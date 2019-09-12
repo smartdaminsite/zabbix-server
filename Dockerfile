@@ -4,9 +4,9 @@ FROM ubuntu:xenial
 RUN apt-get update && apt-get -y install curl apt-transport-https ca-certificates && \
     apt-get -y install gnupg-agent software-properties-common && \
     LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php && apt-get update &&\
-    apt-get -y install php7.3 php7.3-cli php7.3-common php7.3-fpm && \
-    apt-get -y install php7.3 php7.3-mbstring php7.3-xmlrpc php7.3-soap \
-    php7.3-gd php7.3-xml php7.3-intl php7.3-mysql php7.3-zip php7.3-curl php7.3-fpm
+    apt-get -y install php7.3 php7.3-cli php7.3-common php7.3-fpm php7.3-ldap && \
+    apt-get -y install php7.3 php7.3-mbstring php7.3-xmlrpc php7.3-soap php7.3-bcmath && \
+    apt-get -y install php7.3-gd php7.3-xml php7.3-intl php7.3-mysql php7.3-zip php7.3-curl php7.3-fpm
 
 # Устанавливаем Nginx
 RUN apt-get install -y nginx-full
