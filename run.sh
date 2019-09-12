@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Получаем идентификатор процесса
+PROC_ID=`echo $$`
+
 # Конфигурация Frontend
 echo "<?php" > /var/www/html/conf/zabbix.conf.php
 echo "// Zabbix GUI configuration file." >> /var/www/html/conf/zabbix.conf.php
@@ -44,7 +47,26 @@ echo "StatsAllowedIP=127.0.0.1" >> /usr/local/etc/zabbix_server.conf
 su zabbix -c "/usr/local/sbin/zabbix_agentd -f" &
 su zabbix -c "/usr/local/sbin/zabbix_server -f" &
 /usr/sbin/nginx -g 'daemon off;' &
-/usr/sbin/php-fpm7.3 -F
+/usr/sbin/php-fpm7.3 -F &
 
+# Отслеживаем состояние процессов
+WATCH_FOR="zabbix_agentd,zabbix_server"
+sleep 10
+
+while true;
+    do
+    echo $WATCH_FOR | tr "," "\n" | while read _proc;
+        do
+        proc_count=`ps ax | grep "${_proc}" | grep -v "grep" | wc -l`
+        echo "Watch for ${_proc} - ${proc_count}"
+        if [ "${proc_count}" = "0" ];
+        then
+                echo "Proc ${_proc} is down - EXIT NOW!"
+                kill -9 $PROC_ID
+        fi
+        echo $LOGOUT
+        done
+    sleep 5
+    done;
 
 exit 0
