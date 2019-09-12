@@ -50,7 +50,7 @@ su zabbix -c "/usr/local/sbin/zabbix_server -f" &
 /usr/sbin/php-fpm7.3 -F &
 
 # Отслеживаем состояние процессов
-WATCH_FOR="zabbix_agentd,zabbix_server"
+WATCH_FOR="zabbix_agentd,zabbix_server,nginx,php-fpm"
 sleep 10
 
 while true;
@@ -58,7 +58,7 @@ while true;
     echo $WATCH_FOR | tr "," "\n" | while read _proc;
         do
         proc_count=`ps ax | grep "${_proc}" | grep -v "grep" | wc -l`
-        echo "Watch for ${_proc} - ${proc_count}"
+        #echo "Watch for ${_proc} - ${proc_count}"
         if [ "${proc_count}" = "0" ];
         then
                 echo "Proc ${_proc} is down - EXIT NOW!"

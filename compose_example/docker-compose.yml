@@ -1,0 +1,14 @@
+version: '3'
+services:
+  zabbix_server:
+    ports:
+      - 9090:8080
+    image: smartdminsite/zabbix-server:latest
+    extra_hosts:
+      local-db: ${ZABBIX_DB_HOST}
+    environment:
+      - ZABBIX_DB_USER=${ZABBIX_DB_USER}
+      - ZABBIX_DB_PASSWORD=${ZABBIX_DB_PASSWORD}
+      - ZABBIX_DB_NAME=${ZABBIX_DB_NAME}
+      - ZABBIX_DB_HOST=local-db
+    restart: always
