@@ -37,10 +37,10 @@ RUN cd /usr/src/zabbix/ &&\
    make dbschema && make && make install
 
 # Определяем переменные для подключения к базе данных Zabbix
-ENV ZABBIX_DB_USER "zabbix_user"
-ENV ZABBIX_DB_PASSWORD "ZaVdeASev123Qad"
-ENV ZABBIX_DB_NAME "zabbix_db"
-ENV ZABBIX_DB_HOST "80.211.64.250"
+ENV ZABBIX_DB_USER "db-user"
+ENV ZABBIX_DB_PASSWORD "db-password"
+ENV ZABBIX_DB_NAME "db-name"
+ENV ZABBIX_DB_HOST "db-host"
 
 # Перенаправляем вывод логов в stdout и stderr
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
