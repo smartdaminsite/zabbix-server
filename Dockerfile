@@ -56,8 +56,11 @@ RUN groupadd zabbix &&\
 
 RUN mkdir /run/php/
 
+# Создаем конфигурационные файлы и скрипт запуска согласно переменных окружения
+COPY ./run.sh /opt/
+RUN chmod +x /opt/run.sh
+
 EXPOSE 8080
 STOPSIGNAL SIGTERM
 
-CMD /usr/sbin/nginx -g 'daemon off;' &\
-    /usr/sbin/php-fpm7.3 -F
+CMD /opt/run.sh
