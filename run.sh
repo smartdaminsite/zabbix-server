@@ -64,7 +64,6 @@ while true;
                 echo "Proc ${_proc} is down - EXIT NOW!"
                 kill -9 $PROC_ID
         fi
-        echo $LOGOUT
         done
     sleep 5
     done;
